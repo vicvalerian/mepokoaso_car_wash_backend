@@ -37,7 +37,7 @@ class Karyawan extends Model
     }
 
     public function transaksi_pencucian_pencucis(){
-        return $this->belongsToMany(TransaksiPencucian::class, 'transaksi_karyawan_pencucis', 'transaksi_pencucian_id', 'karyawan_id')->withPivot('upah_pencuci');
+        return $this->belongsToMany(TransaksiPencucian::class, 'detail_transaksi_pencucis', 'karyawan_id', 'transaksi_pencucian_id')->withPivot('upah_pencuci');
     }
 
     public function detail_transaksi_pencucis(){
