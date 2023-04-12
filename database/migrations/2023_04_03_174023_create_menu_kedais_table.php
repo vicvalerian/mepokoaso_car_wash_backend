@@ -18,7 +18,7 @@ class CreateMenuKedaisTable extends Migration
             $table->string('nama');
             $table->string('jenis');
             $table->integer('harga');
-            $table->integer('stok')->default(0);
+            $table->integer('stok')->default(0)->nullable();
             $table->boolean('is_stok')->default(false);
             $table->timestamps();
             $table->softDeletes();
