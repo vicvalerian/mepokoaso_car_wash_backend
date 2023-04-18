@@ -29,7 +29,7 @@ class TransaksiPencucian extends Model
     }
 
     public function karyawan_pencucis(){
-        return $this->belongsToMany(Karyawan::class, 'detail_transaksi_pencucis', 'transaksi_pencucian_id', 'karyawan_id',)->withPivot('upah_pencuci');
+        return $this->belongsToMany(Karyawan::class, 'detail_transaksi_pencucis', 'transaksi_pencucian_id', 'karyawan_id',)->withPivot('upah_pencuci')->whereNull('detail_transaksi_pencucis.deleted_at');
     }
 
     public function detail_transaksi_pencucis(){
