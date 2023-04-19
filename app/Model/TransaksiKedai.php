@@ -25,7 +25,7 @@ class TransaksiKedai extends Model
     }
 
     public function menu_kedai(){
-        return $this->belongsToMany(MenuKedai::class, 'detail_transaksi_kedais', 'transaksi_kedai_id', 'menu_kedai_id')->withPivot('kuantitas', 'sub_total');
+        return $this->belongsToMany(MenuKedai::class, 'detail_transaksi_kedais', 'transaksi_kedai_id', 'menu_kedai_id')->withPivot('kuantitas', 'sub_total')->whereNull('detail_transaksi_kedais.deleted_at');
     }
 
     public static function filters(){
