@@ -8,7 +8,9 @@ use App\Model\MobilPelanggan;
 use App\Model\TransaksiPencucian;
 use Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use PDF;
 
 class TransaksiPencucianController extends Controller
 {
@@ -248,5 +250,40 @@ class TransaksiPencucianController extends Controller
         return response([
             'message' => 'Berhasil Mengubah Status Transaksi Pencucian',
         ], 200);
+    }
+
+    public function cetakNotaPencucian($id){
+        $transaksi = TransaksiPencucian::with(['kendaraan', 'karyawan', 'detail_transaksi_pencucis', 'karyawan_pencucis'])->where('id', $id)->first();
+        $tglWaktu = date('Y-m-d H:i:s');
+
+        $data = [
+            'judul' => 'Nota Pencucian',
+            'subJudul' => 'Mepokoaso Car Wash',
+            'transaksi' => $transaksi,
+            'tglWaktu' => $tglWaktu,
+        ];
+          
+        $pdf = PDF::loadView('notapencucian', $data);
+    
+        return $pdf->stream('Nota Pencucian.pdf');
+    }
+
+    public function getByMonthYearDashboard(Request $request){
+        $bulan = $request->bulan;
+        $tahun = $request->tahun;
+        
+        $datas = TransaksiPencucian::select('tgl_pencucian', DB::raw('count(*) as total'))
+        ->whereMonth('tgl_pencucian', $bulan)
+        ->whereYear('tgl_pencucian', $tahun)
+        ->groupBy('tgl_pencucian')
+        ->get();
+
+        foreach($datas as $data){
+            $tgl = strtotime($data->tgl_pencucian);
+            $formatTgl = date('d', $tgl) .' '. date('M', $tgl);
+            $data->formatTgl = $formatTgl;
+        }
+
+        return $datas;
     }
 }

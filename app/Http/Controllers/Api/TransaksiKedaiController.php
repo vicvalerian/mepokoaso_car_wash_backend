@@ -8,6 +8,7 @@ use App\Model\MenuKedai;
 use App\Model\TransaksiKedai;
 use Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class TransaksiKedaiController extends Controller
@@ -202,5 +203,24 @@ class TransaksiKedaiController extends Controller
         }
 
         return false;
+    }
+
+    public function getByMonthYearDashboard(Request $request){
+        $bulan = $request->bulan;
+        $tahun = $request->tahun;
+
+        $datas = TransaksiKedai::select('tgl_penjualan', DB::raw('count(*) as total'))
+        ->whereMonth('tgl_penjualan', $bulan)
+        ->whereYear('tgl_penjualan', $tahun)
+        ->groupBy('tgl_penjualan')
+        ->get();
+
+        foreach($datas as $data){
+            $tgl = strtotime($data->tgl_penjualan);
+            $formatTgl = date('d', $tgl) .' '. date('M', $tgl);
+            $data->formatTgl = $formatTgl;
+        }
+
+        return $datas;
     }
 }

@@ -92,6 +92,8 @@ Route::put('transaksi-pencucian/cuci', 'Api\TransaksiPencucianController@prosesC
 Route::put('transaksi-pencucian/kering', 'Api\TransaksiPencucianController@prosesKering');
 Route::put('transaksi-pencucian/bayar', 'Api\TransaksiPencucianController@prosesBayar');
 Route::put('transaksi-pencucian/finish', 'Api\TransaksiPencucianController@finish');
+Route::get('transaksi-pencucian/nota/{id}', 'Api\TransaksiPencucianController@cetakNotaPencucian');
+Route::get('chart/transaksi-pencucian', 'Api\TransaksiPencucianController@getByMonthYearDashboard');
 
 //Gaji Karyawan
 Route::post('gaji-karyawan', 'Api\GajiKaryawanController@syncGaji');
@@ -106,6 +108,7 @@ Route::post('transaksi-kedai/{id}', 'Api\TransaksiKedaiController@update');
 Route::delete('transaksi-kedai/{id}', 'Api\TransaksiKedaiController@delete');
 Route::get('transaksi-kedai/{id}', 'Api\TransaksiKedaiController@get');
 Route::get('transaksi-kedai', 'Api\TransaksiKedaiController@getAll');
+Route::get('chart/transaksi-kedai', 'Api\TransaksiKedaiController@getByMonthYearDashboard');
 
 //Laporan
 Route::get('laporan/transaksi-pencucian', 'Api\LaporanController@generateLaporanPencucian');
