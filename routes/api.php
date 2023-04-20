@@ -106,3 +106,8 @@ Route::post('transaksi-kedai/{id}', 'Api\TransaksiKedaiController@update');
 Route::delete('transaksi-kedai/{id}', 'Api\TransaksiKedaiController@delete');
 Route::get('transaksi-kedai/{id}', 'Api\TransaksiKedaiController@get');
 Route::get('transaksi-kedai', 'Api\TransaksiKedaiController@getAll');
+
+//Laporan
+Route::get('laporan/transaksi-pencucian', 'Api\LaporanController@generateLaporanPencucian');
+Route::get('laporan/transaksi-kedai', 'Api\LaporanController@generateLaporanKedai');
+Route::get('laporan/pengeluaran-kedai', 'Api\LaporanController@generateLaporanPengeluaranKedai');
