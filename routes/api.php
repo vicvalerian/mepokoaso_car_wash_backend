@@ -86,6 +86,7 @@ Route::get('pengeluaran-kedai', 'Api\PengeluaranKedaiController@getAll');
 Route::get('mobil-pelanggan/{id}', 'Api\MobilPelangganController@get');
 Route::get('mobil-pelanggan', 'Api\MobilPelangganController@getAll');
 Route::get('mobil-pelanggan-transaksi/{id}', 'Api\MobilPelangganController@getTransaksiByMobilPelanggan');
+Route::get('riwayat/mobil-pelanggan', 'Api\MobilPelangganController@getRiwayatByPlat');
 
 //Transaksi Pencucian
 Route::get('generate-nomor-pencucian', 'Api\TransaksiPencucianController@generateNoPencucian');
