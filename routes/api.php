@@ -56,6 +56,9 @@ Route::get('list-selection-karyawan', 'Api\KaryawanController@listKaryawan');
 Route::get('list-selection-kasir', 'Api\KaryawanController@listKaryawanKasir');
 Route::get('list-selection-penjaga-kedai', 'Api\KaryawanController@listKaryawanPenjagaKedai');
 Route::get('list-selection-pencuci', 'Api\KaryawanController@listKaryawanPencuci');
+Route::post('karyawan/profil/{id}', 'Api\KaryawanController@updateProfil');
+Route::post('karyawan/photo/{id}', 'Api\KaryawanController@updateFoto');
+Route::post('karyawan/password/{id}', 'Api\KaryawanController@updatePassword');
 
 //Peminjaman Karyawan
 Route::post('peminjaman-karyawan', 'Api\PeminjamanKaryawanController@create');

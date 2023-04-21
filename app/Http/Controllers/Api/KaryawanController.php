@@ -207,4 +207,100 @@ class KaryawanController extends Controller
         
         return $karyawans;
     }
+
+    public function updateProfil(Request $request, $id){
+        $data = Karyawan::find($id);
+
+        $storeData = $request->all();
+        $validator = Validator::make($storeData, [
+            'jabatan_id' => 'required',
+            'nama' => 'required',
+            'no_telp' => 'required|numeric',
+            'username' => ['required', Rule::unique('karyawans')->ignore($data->id)->whereNull('deleted_at')],
+            'status' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return response([
+                'message' => $validator->messages()->all()
+            ], 400);
+        }
+
+        $karyawanData = collect($request)->only(Karyawan::filters())->all();
+        $data->update($karyawanData);
+
+        return response([
+            'message' => 'Berhasil Mengubah Profil',
+            'data' => $data,
+        ], 200);
+    }
+
+    public function updateFoto(Request $request, $id){
+        $data = Karyawan::find($id);
+
+        $storeData = $request->all();
+        $validator = Validator::make($storeData, [
+            'foto' => 'required|mimes:jpeg,bmp,png',
+        ]);
+
+        if($validator->fails()){
+            return response([
+                'message' => $validator->messages()->all()
+            ], 400);
+        }
+
+        if(isset($data->foto)){
+            Storage::delete("public/".$data->foto);
+        }
+        $image_name = 'gambar'.str_replace(' ', '', $data->username);
+        $file = $request->foto;
+        $extension = $file->getClientOriginalExtension();
+
+        $uploadDoc = $request->foto->storeAs(
+            'img_karyawan',
+            $image_name.'.'.$extension,
+            ['disk' => 'public']
+        );
+
+        $karyawanData['foto'] = $uploadDoc;
+        $data->update($karyawanData);
+
+        return response([
+            'message' => 'Berhasil Mengubah Foto Profil',
+            'data' => $data,
+        ], 200);
+    }
+
+    public function updatePassword(Request $request, $id){
+        $data = Karyawan::find($id);
+
+        $storeData = $request->all();
+        $validator = Validator::make($storeData, [
+            'password' => 'required',
+            'newPassword' => 'required',
+            'confirmNewPassword' => 'required',
+        ]);
+
+        $checkedPass = Hash::check($request->password, $data->password);
+        if(!$checkedPass){
+            return response([
+                'message' => 'Password Lama Anda Salah!',
+                'data' => null
+            ], 400);
+        }
+
+        $karyawanData['password'] = Hash::make($request->newPassword);
+        $data->update($karyawanData);
+
+        if($validator->fails()){
+            return response([
+                'message' => $validator->messages()->all()
+            ], 400);
+        }
+
+        return response([
+            'message' => 'Berhasil Mengubah Kata Sandi',
+            'data' => $data,
+        ], 200);
+    }
 }
