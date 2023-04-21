@@ -20,7 +20,6 @@ class KaryawanController extends Controller
             'nama' => 'required',
             'no_telp' => 'required|numeric',
             'username' => ['required', Rule::unique('karyawans')->whereNull('deleted_at')],
-            'password' => 'required',
             'foto' => 'required|mimes:jpeg,bmp,png',
             'gaji' => 'nullable',
             'status' => 'required',
@@ -45,7 +44,7 @@ class KaryawanController extends Controller
         );
 
         $karyawanData['foto'] = $uploadDoc;
-        $karyawanData['password'] = Hash::make($request->password);
+        $karyawanData['password'] = Hash::make($request->no_telp);
 
         $karyawan = Karyawan::create($karyawanData);
 
