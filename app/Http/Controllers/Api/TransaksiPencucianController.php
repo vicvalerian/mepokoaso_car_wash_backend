@@ -254,13 +254,14 @@ class TransaksiPencucianController extends Controller
 
     public function cetakNotaPencucian($id){
         $transaksi = TransaksiPencucian::with(['kendaraan', 'karyawan', 'detail_transaksi_pencucis', 'karyawan_pencucis'])->where('id', $id)->first();
-        $tglWaktu = date('Y-m-d H:i:s');
+        $tglWaktu = date('d-m-Y');
 
         $data = [
             'judul' => 'Nota Pencucian',
             'subJudul' => 'Mepokoaso Car Wash',
             'transaksi' => $transaksi,
             'tglWaktu' => $tglWaktu,
+            'diskon' => $transaksi->is_free ? $transaksi->tarif_kendaraan : 0,
         ];
           
         $pdf = PDF::loadView('notapencucian', $data);
