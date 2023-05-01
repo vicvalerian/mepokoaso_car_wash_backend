@@ -207,7 +207,7 @@ class TransaksiPencucianController extends Controller
         if($transaksi->mobil_pelanggan){
             $mobilPelanggan = $transaksi->mobil_pelanggan;
 
-            if($mobilPelanggan->jml_transaksi == 6){
+            if(($mobilPelanggan->jml_transaksi % 6) == 0){
                 $transaksi->update(['is_free' => true]);
             }
         }
