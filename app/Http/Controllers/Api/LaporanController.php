@@ -17,13 +17,13 @@ class LaporanController extends Controller
 
         $files = TransaksiPencucian::with(['kendaraan', 'karyawan_pencucis'])
         ->whereBetween('tgl_pencucian', [$tglMulai, $tglSelesai])
-        // ->where('status', 'Selesai')
+        ->where('status', 'Selesai')
         ->orderBy('tgl_pencucian', 'asc')
         ->get();
 
         $totalPendapatan = TransaksiPencucian::with(['kendaraan', 'karyawan_pencucis'])
         ->whereBetween('tgl_pencucian', [$tglMulai, $tglSelesai])
-        // ->where('status', 'Selesai')
+        ->where('status', 'Selesai')
         ->orderBy('tgl_pencucian', 'asc')
         ->sum('keuntungan');
 
@@ -87,5 +87,10 @@ class LaporanController extends Controller
         $pdf = PDF::loadView('laporanpengeluarankedai', $data);
     
         return $pdf->stream('Laporan Pengeluaran Kedai.pdf');
+    }
+
+    public static function formatRupiah($angka){
+        $hasil_rupiah = "Rp" . number_format($angka,0,'','.');
+        return $hasil_rupiah;
     }
 }
