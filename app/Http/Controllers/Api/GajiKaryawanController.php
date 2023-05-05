@@ -135,6 +135,12 @@ class GajiKaryawanController extends Controller
             $data = GajiKaryawan::with(['karyawan'])->get();
         }
 
+        foreach($data as $gaji){
+            $gaji->formatBulan = $this->fetchMonth($gaji->bulan);
+        }
+
+        $data = $data->sortByDesc('formatBulan')->sortByDesc('tahun')->values();
+
         return response([
             'message' => 'Tampil Data Gaji Karyawan Berhasil!',
             'data' => $data,
