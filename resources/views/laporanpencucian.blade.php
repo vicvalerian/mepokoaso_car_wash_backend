@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <style>
+        br {
+            display: block;
+            content: ""; /* clears default height */
+            margin-top: 2; /* change this to whatever height you want it */
+        }
         h2{
             text-align: center;
             font-size: 20px;
@@ -75,7 +80,7 @@
         <table class="fl-table">
             <thead>
                 <tr>
-                    <th style="width: 50px">No</th>
+                    <th style="width: 50px">Nomor Transaksi</th>
                     <th style="width: 120px">Tanggal Pencucian</th>
                     <th style="width: 100px">Nama Kendaraan</th>
                     <th style="width: 150px">Pencuci</th>
@@ -87,8 +92,8 @@
                 @php $i=1 @endphp
                 @foreach($files as $file)
                 <tr>
-                    <td>{{ $i++ }}</td>
-                    <td>{{$file->tgl_pencucian}}</td>
+                    <td>{{ $file->no_pencucian }}</td>
+                    <td>{{$file->tgl_pencucian}} <br> {{$file->waktu_pencucian}} WITA</td>
                     <td>{{$file->kendaraan->nama}}</td>
 
                     @php
