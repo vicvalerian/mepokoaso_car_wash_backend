@@ -14,7 +14,7 @@ use PDF;
 
 class TransaksiPencucianController extends Controller
 {
-    public function generateNoPencucian(){
+    private function generateNoPencucian(){
         $type = "CUCI";
         $currentTime = now()->format('dmy');
         $numberPrefix = $type.$currentTime.'-';
@@ -34,7 +34,7 @@ class TransaksiPencucianController extends Controller
         $validator = Validator::make($storeData, [
             'kendaraan_id' => 'required',
             'karyawan_id' => 'required',
-            'no_pencucian' => ['required', Rule::unique('transaksi_pencucians')->whereNull('deleted_at')],
+            // 'no_pencucian' => ['required', Rule::unique('transaksi_pencucians')->whereNull('deleted_at')],
             'no_polisi' => 'required',
             'jenis_kendaraan' => 'required',
             'tarif_kendaraan' => 'required|numeric',
@@ -49,6 +49,7 @@ class TransaksiPencucianController extends Controller
         }
 
         $pencucianData = collect($request)->only(TransaksiPencucian::filters())->all();
+        $pencucianData['no_pencucian'] =  $this->generateNoPencucian();
 
         $jmlPencuci = count($request->detail_transaksi_pencuci);
         $upahPencuci = ($pencucianData['tarif_kendaraan'] * 0.35) / $jmlPencuci;
@@ -88,7 +89,7 @@ class TransaksiPencucianController extends Controller
         $validator = Validator::make($updateData, [
             'kendaraan_id' => 'required',
             'karyawan_id' => 'required',
-            'no_pencucian' => ['required', Rule::unique('transaksi_pencucians')->ignore($data->id)->whereNull('deleted_at')],
+            // 'no_pencucian' => ['required', Rule::unique('transaksi_pencucians')->ignore($data->id)->whereNull('deleted_at')],
             'no_polisi' => 'required',
             'jenis_kendaraan' => 'required',
             'tarif_kendaraan' => 'required|numeric',

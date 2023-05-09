@@ -89,7 +89,7 @@ Route::get('mobil-pelanggan-transaksi/{id}', 'Api\MobilPelangganController@getTr
 Route::get('riwayat/mobil-pelanggan', 'Api\MobilPelangganController@getRiwayatByPlat');
 
 //Transaksi Pencucian
-Route::get('generate-nomor-pencucian', 'Api\TransaksiPencucianController@generateNoPencucian');
+// Route::get('generate-nomor-pencucian', 'Api\TransaksiPencucianController@generateNoPencucian');
 Route::post('transaksi-pencucian', 'Api\TransaksiPencucianController@create');
 Route::post('transaksi-pencucian/{id}', 'Api\TransaksiPencucianController@update');
 Route::delete('transaksi-pencucian/{id}', 'Api\TransaksiPencucianController@delete');
@@ -109,7 +109,7 @@ Route::get('gaji-karyawan/{id}', 'Api\GajiKaryawanController@get');
 Route::get('gaji-karyawan', 'Api\GajiKaryawanController@getAll');
 
 //Transaksi Kedai
-Route::get('generate-nomor-kedai', 'Api\TransaksiKedaiController@generateNoPenjualan');
+// Route::get('generate-nomor-kedai', 'Api\TransaksiKedaiController@generateNoPenjualan');
 Route::post('transaksi-kedai', 'Api\TransaksiKedaiController@create');
 Route::post('transaksi-kedai/{id}', 'Api\TransaksiKedaiController@update');
 Route::delete('transaksi-kedai/{id}', 'Api\TransaksiKedaiController@delete');
