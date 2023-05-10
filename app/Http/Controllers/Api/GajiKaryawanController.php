@@ -17,6 +17,18 @@ class GajiKaryawanController extends Controller
         $bulan = $this->fetchMonth($request->bulan);
         $tahun = $request->tahun;
 
+        $findGaji = GajiKaryawan::where('karyawan_id', $karyawan_id)
+        ->where('bulan', $request->bulan)
+        ->where('tahun', $tahun)
+        ->first();
+
+        if($findGaji){
+            return response([
+                'message' => 'Gaji Karyawan Sudah Terhitung!',
+                'data' => null,
+            ], 400);
+        }
+
         $karyawan = Karyawan::with(['jabatan'])->where('id', $karyawan_id)->first();
         $jabatan = $karyawan->jabatan;
 
@@ -53,20 +65,18 @@ class GajiKaryawanController extends Controller
 
         if($gajiBersih < 0){
             $status = 'Utang';
+        } else if($gajiBersih == 0){
+            $status = 'Lunas';
         } else{
             $status = 'Belum Diterima';
         }
 
-        $gaji = GajiKaryawan::updateOrCreate([
-            'karyawan_id' => $karyawan_id,
-            'bulan' => $request->bulan,
-            'tahun' => $tahun,
-        ],[
+        $gaji = GajiKaryawan::create([
             'karyawan_id' => $karyawan_id,
             'bulan' => $request->bulan,
             'tahun' => $tahun,
             'total_gaji_kotor' => $gajiKotor ?? 0,
-            'total_utang' => $totalUtang  ?? 0,
+            'total_utang' => $totalUtang ?? 0,
             'total_gaji_bersih' => $gajiBersih  ?? 0,
             'status' => $status,
         ]);
