@@ -216,7 +216,7 @@ class KaryawanController extends Controller
             'nama' => 'required',
             'no_telp' => 'required|numeric',
             'username' => ['required', Rule::unique('karyawans')->ignore($data->id)->whereNull('deleted_at')],
-            'status' => 'required',
+            // 'status' => 'required',
         ]);
 
         if($validator->fails()){

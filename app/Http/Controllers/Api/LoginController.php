@@ -34,7 +34,7 @@ class LoginController extends Controller
             ], 404);
         }
 
-        if($user->jabatan->nama != 'Pemilik' && $user->jabatan->nama != 'Kasir'){
+        if($user->jabatan->nama == 'Pencuci'){
             return response([
                 'message' => 'Maaf, Anda Tidak Memiliki Akses Ke Dalam Sistem!',
                 'data' => null
