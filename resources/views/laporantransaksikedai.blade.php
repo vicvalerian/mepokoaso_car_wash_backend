@@ -84,19 +84,19 @@
                     <th style="width: 120px">Tanggal Penjualan</th>
                     <th>Nama Menu</th>
                     <th>Kuantitas</th>
-                    <th>Subtotal</th>
-                    <th>Total</th>
+                    <th style="width: 60px">Subtotal(Rp)</th>
+                    <th>Total(Rp)</th>
                 </tr>
             </thead>
             <tbody>
                 @php $i=1 @endphp
                 @foreach($files as $file)
                 <tr>
-                    <td>{{ $file->no_penjualan }}</td>
-                    <td>{{$file->tgl_penjualan}} <br> {{$file->waktu_penjualan}} WITA</td>
+                    <td style="text-align: left;">{{ $file->no_penjualan }}</td>
+                    <td>{{date('d/m/Y',strtotime($file->tgl_penjualan))}} <br> {{$file->waktu_penjualan}} WITA</td>
 
                     @php
-                    echo '<td>';
+                    echo '<td style="text-align: left;">';
                         foreach($file->menu_kedai as $menu){
                             echo $menu->nama . '<br/>';
                         }
@@ -112,7 +112,7 @@
                     @endphp
 
                     @php
-                    echo '<td>';
+                    echo '<td style="text-align: right;">';
                         foreach($file->menu_kedai as $menu){
                             $sub_total = App\Http\Controllers\Api\LaporanController::formatRupiah($menu->pivot->sub_total);
                             echo $sub_total . '<br/>';
@@ -121,7 +121,7 @@
                     @endphp
 
                     @php $total_penjualan = App\Http\Controllers\Api\LaporanController::formatRupiah($file->total_penjualan) @endphp
-                    <td>{{$total_penjualan}}</td>
+                    <td  style="text-align: right;">{{$total_penjualan}}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -129,7 +129,7 @@
                 <tr>
                     <td colspan="5" style="text-align: center"><b>Total Pendapatan</b></td>
                     @php $total = App\Http\Controllers\Api\LaporanController::formatRupiah($totalPendapatan) @endphp
-                    <td><b>{{ $total }}</b></td>
+                    <td style="text-align: right"><b>Rp{{ $total }}</b></td>
                 </tr>
             </tfoot>
         </table>

@@ -79,7 +79,7 @@
                     <th style="width: 100px">Tanggal Pembelian</th>
                     <th style="width: 170px">Nama Barang</th>
                     <th>Jumlah Barang(pcs)</th>
-                    <th>Harga Pembelian</th>
+                    <th>Harga Pembelian(Rp)</th>
                 </tr>
             </thead>
             <tbody>
@@ -88,10 +88,10 @@
                 @php $harga = App\Http\Controllers\Api\LaporanController::formatRupiah($file->harga_pembelian) @endphp
                 <tr>
                     <td>{{ $i++ }}</td>
-                    <td>{{$file->tgl_pembelian}}</td>
-                    <td>{{$file->nama_barang}}</td>
+                    <td>{{date('d/m/Y',strtotime($file->tgl_pembelian))}}</td>
+                    <td style="text-align: left">{{$file->nama_barang}}</td>
                     <td>{{$file->jumlah_barang}}</td>
-                    <td> {{ $harga }} </td>
+                    <td style="text-align: right"> {{ $harga }} </td>
                 </tr>
                 @endforeach
             </tbody>
@@ -99,7 +99,7 @@
                 <tr>
                     <td colspan="4" style="text-align: center"><b>Total Pengeluaran</b></td>
                     @php $total = App\Http\Controllers\Api\LaporanController::formatRupiah($totalPengeluaran); @endphp
-                    <td><b>{{ $total }}</b></td>
+                    <td style="text-align: right"><b>Rp{{ $total }}</b></td>
                 </tr>
             </tfoot>
         </table>
