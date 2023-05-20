@@ -41,6 +41,13 @@ class LoginController extends Controller
             ], 400);
         }
 
+        if($user->status != 'Aktif'){
+            return response([
+                'message' => 'Maaf, Status Anda Tidak Aktif!',
+                'data' => null
+            ], 400);
+        }
+
         $checkedPass = Hash::check($password, $user->password);
         if(!$checkedPass){
             return response([
