@@ -102,10 +102,6 @@ class KaryawanController extends Controller
             $karyawanData['foto'] = $uploadDoc;
         }
 
-        if(isset($request->password)){
-            $karyawanData['password'] = Hash::make($request->password);
-        }
-
         $data->update($karyawanData);
 
         return response([
