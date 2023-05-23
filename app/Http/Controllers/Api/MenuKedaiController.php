@@ -16,6 +16,7 @@ class MenuKedaiController extends Controller
             'nama' => 'required',
             'jenis' => 'required',
             'harga' => 'required|numeric',
+            'stok' => 'required|numeric',
         ]);
 
         if($validator->fails()){
@@ -48,6 +49,7 @@ class MenuKedaiController extends Controller
             'nama' => 'required',
             'jenis' => 'required',
             'harga' => 'required|numeric',
+            'stok' => 'required|numeric',
         ]);
 
         if($validator->fails()){
