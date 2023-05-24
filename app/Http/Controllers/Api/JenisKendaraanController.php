@@ -29,7 +29,7 @@ class JenisKendaraanController extends Controller
 
         $jenisKendaraanData = collect($request)->only(JenisKendaraan::filters())->all();
         
-        $image_name = 'logo'.str_replace(' ', '', $jenisKendaraanData['nama']);
+        $image_name = 'logo'.\Str::random(5).str_replace(' ', '', $jenisKendaraanData['nama']);
         $file = $jenisKendaraanData['logo'];
         $extension = $file->getClientOriginalExtension();
 
@@ -78,7 +78,7 @@ class JenisKendaraanController extends Controller
             if(isset($data->logo)){
                 Storage::delete("public/".$data->logo);
             }
-            $image_name = 'logo'.str_replace(' ', '', $jenisKendaraanData['nama']);
+            $image_name = 'logo'.\Str::random(5).str_replace(' ', '', $jenisKendaraanData['nama']);
             $file = $jenisKendaraanData['logo'];
             $extension = $file->getClientOriginalExtension();
 

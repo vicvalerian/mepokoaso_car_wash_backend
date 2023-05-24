@@ -28,7 +28,7 @@ class KendaraanController extends Controller
 
         $kendaraanData = collect($request)->only(Kendaraan::filters())->all();
         
-        $image_name = 'gambar'.$request->jenis_kendaraan_id.str_replace(' ', '', $kendaraanData['nama']);
+        $image_name = 'gambar'.\Str::random(5).$request->jenis_kendaraan_id.str_replace(' ', '', $kendaraanData['nama']);
         $file = $kendaraanData['foto'];
         $extension = $file->getClientOriginalExtension();
 
@@ -79,7 +79,7 @@ class KendaraanController extends Controller
             if(isset($data->foto)){
                 Storage::delete("public/".$data->foto);
             }
-            $image_name = 'gambar'.$request->jenis_kendaraan_id.str_replace(' ', '', $kendaraanData['nama']);
+            $image_name = 'gambar'.\Str::random(5).$request->jenis_kendaraan_id.str_replace(' ', '', $kendaraanData['nama']);
             $file = $kendaraanData['foto'];
             $extension = $file->getClientOriginalExtension();
 

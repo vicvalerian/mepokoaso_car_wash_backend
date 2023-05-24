@@ -33,7 +33,7 @@ class KaryawanController extends Controller
 
         $karyawanData = collect($request)->only(Karyawan::filters())->all();
         
-        $image_name = 'gambar'.str_replace(' ', '', $karyawanData['username']);
+        $image_name = 'gambar'.\Str::random(5).str_replace(' ', '', $karyawanData['username']);
         $file = $karyawanData['foto'];
         $extension = $file->getClientOriginalExtension();
 
@@ -89,7 +89,7 @@ class KaryawanController extends Controller
             if(isset($data->foto)){
                 Storage::delete("public/".$data->foto);
             }
-            $image_name = 'gambar'.$request->jenis_kendaraan_id.str_replace(' ', '', $karyawanData['nama']);
+            $image_name = 'gambar'.\Str::random(5).$request->jenis_kendaraan_id.str_replace(' ', '', $karyawanData['nama']);
             $file = $karyawanData['foto'];
             $extension = $file->getClientOriginalExtension();
 
@@ -247,7 +247,7 @@ class KaryawanController extends Controller
         if(isset($data->foto)){
             Storage::delete("public/".$data->foto);
         }
-        $image_name = 'gambar'.str_replace(' ', '', $data->username);
+        $image_name = 'gambar'.\Str::random(5).str_replace(' ', '', $data->username);
         $file = $request->foto;
         $extension = $file->getClientOriginalExtension();
 
