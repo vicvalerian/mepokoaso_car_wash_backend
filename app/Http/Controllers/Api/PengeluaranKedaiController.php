@@ -72,7 +72,7 @@ class PengeluaranKedaiController extends Controller
 
         $pengeluaranKedaiData = collect($request)->only(PengeluaranKedai::filters())->all();
 
-        if($data->jumlah_barang != $request->jumlah_barang || $data->menu_kedai_id != $request->menu_kedai_id){
+        if(!is_null($data->menu_kedai_id)){
             $menuKedai = MenuKedai::find($data->menu_kedai_id);
             $stokKedai = $menuKedai->stok;
 
