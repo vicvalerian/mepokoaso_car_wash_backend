@@ -118,13 +118,24 @@ class TransaksiKedaiController extends Controller
     }
 
     public function delete($id){
-        $data = TransaksiKedai::where('id', $id)->first();
+        $data = TransaksiKedai::with(['detail_transaksi_kedais'])->where('id', $id)->first();
 
         if(is_null($data)){
             return response([
                 'message' => 'Data Transaksi Kedai Tidak Ditemukan',
                 'data' => null
             ], 404);
+        }
+
+        foreach($data->detail_transaksi_kedais as $detail_transaksi_kedai){
+            $menuKedai = MenuKedai::find($detail_transaksi_kedai->menu_kedai_id);
+            
+            if($menuKedai && $menuKedai->is_stok){
+                $stokKedai = $menuKedai->stok;
+                $menuKedai->update([
+                    'stok' => $stokKedai + $detail_transaksi_kedai->kuantitas,
+                ]);
+            }
         }
 
         $data->delete();
