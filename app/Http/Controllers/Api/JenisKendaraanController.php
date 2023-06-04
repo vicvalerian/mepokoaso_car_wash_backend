@@ -157,7 +157,8 @@ class JenisKendaraanController extends Controller
     }
 
     public function cardListJenisKendaraan(){
-        $jenisKendaraans = JenisKendaraan::all();
+        $jenisKendaraans = JenisKendaraan::orderByRaw("FIELD(`nama`, 'Motor') ASC, `nama`")
+        ->get();
 
         return $jenisKendaraans;
     }

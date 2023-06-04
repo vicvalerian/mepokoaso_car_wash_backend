@@ -140,9 +140,9 @@ class KendaraanController extends Controller
             $data = Kendaraan::with(['jenis_kendaraan'])
             ->whereHas('jenis_kendaraan', function($q) use($jenis){
                 $q->where('nama', $jenis);
-            })->get();
+            })->orderBy("nama", "asc")->get();
         } else{
-            $data = Kendaraan::with(['jenis_kendaraan'])->get();
+            $data = Kendaraan::with(['jenis_kendaraan'])->orderBy("nama", "asc")->get();
         }
 
         return response([

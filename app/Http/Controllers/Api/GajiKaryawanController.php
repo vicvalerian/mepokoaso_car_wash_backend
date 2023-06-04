@@ -57,7 +57,7 @@ class GajiKaryawanController extends Controller
             
             $utangSebelum->update([
                 'total_gaji_bersih' => 0,
-                'status' => 'Lunas',
+                'status' => 'Sudah Diterima',
             ]);
         }
 
@@ -66,7 +66,7 @@ class GajiKaryawanController extends Controller
         if($gajiBersih < 0){
             $status = 'Utang';
         } else if($gajiBersih == 0){
-            $status = 'Lunas';
+            $status = 'Sudah Diterima';
         } else{
             $status = 'Belum Diterima';
         }

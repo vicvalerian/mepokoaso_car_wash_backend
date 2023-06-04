@@ -104,9 +104,9 @@ class MenuKedaiController extends Controller
         $jenis = @$request->jenis;
 
         if($jenis){
-            $data = MenuKedai::where('jenis', $jenis)->get();
+            $data = MenuKedai::where('jenis', $jenis)->orderBy("nama", "asc")->get();
         } else{
-            $data = MenuKedai::get();
+            $data = MenuKedai::orderBy("nama", "asc")->get();
         }
 
         return response([
