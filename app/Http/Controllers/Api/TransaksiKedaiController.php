@@ -225,6 +225,7 @@ class TransaksiKedaiController extends Controller
         ->whereMonth('tgl_penjualan', $bulan)
         ->whereYear('tgl_penjualan', $tahun)
         ->groupBy('tgl_penjualan')
+        ->orderBy('tgl_penjualan', 'asc')
         ->get();
 
         foreach($datas as $data){

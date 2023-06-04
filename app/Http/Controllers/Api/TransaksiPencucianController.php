@@ -278,6 +278,7 @@ class TransaksiPencucianController extends Controller
         ->whereMonth('tgl_pencucian', $bulan)
         ->whereYear('tgl_pencucian', $tahun)
         ->groupBy('tgl_pencucian')
+        ->orderBy('tgl_pencucian', 'asc')
         ->get();
 
         foreach($datas as $data){
