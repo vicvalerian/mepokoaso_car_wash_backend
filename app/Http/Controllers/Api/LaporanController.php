@@ -54,7 +54,7 @@ class LaporanController extends Controller
         ->sum('total_penjualan');
 
         $data = [
-            'judul' => 'Laporan Pengeluaran Kedai',
+            'judul' => 'Laporan Penjualan Kedai',
             'subJudul' => 'Mepokoaso Car Wash',
             'files' => $files,
             'totalPendapatan' => $totalPendapatan,
