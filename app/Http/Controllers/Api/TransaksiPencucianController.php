@@ -205,14 +205,6 @@ class TransaksiPencucianController extends Controller
     public function prosesKering(Request $request){
         $transaksi = TransaksiPencucian::with(['kendaraan', 'mobil_pelanggan'])->where('id', $request->id)->first();
 
-        if($transaksi->mobil_pelanggan){
-            $mobilPelanggan = $transaksi->mobil_pelanggan;
-
-            if(($mobilPelanggan->jml_transaksi % 6) == 0){
-                $transaksi->update(['is_free' => true]);
-            }
-        }
-
         $transaksi->update(['status' => 'Proses Kering']);
 
         return response([
@@ -221,12 +213,21 @@ class TransaksiPencucianController extends Controller
     }
 
     public function prosesBayar(Request $request){
-        $transaksi = TransaksiPencucian::with(['kendaraan'])->where('id', $request->id)->first();
+        $transaksi = TransaksiPencucian::with(['kendaraan', 'mobil_pelanggan'])->where('id', $request->id)->first();
 
-        if($transaksi->is_free == true){
-            $transaksi->update(['total_pembayaran' => 0]);
-        } else if($transaksi->is_free == false){
-            $transaksi->update(['total_pembayaran' => $transaksi->tarif_kendaraan]);
+        if($transaksi->mobil_pelanggan){
+            $mobilPelanggan = $transaksi->mobil_pelanggan;
+
+            if(($mobilPelanggan->jml_transaksi % 6) == 0){
+                $transaksi->update([
+                    'is_free' => true,
+                    'total_pembayaran' => 0,
+                ]);
+            } else{
+                $transaksi->update([
+                    'total_pembayaran' => $transaksi->tarif_kendaraan
+                ]);
+            }
         }
 
         $transaksi->update(['status' => 'Proses Bayar']);

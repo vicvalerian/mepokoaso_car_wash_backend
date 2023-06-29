@@ -80,7 +80,8 @@
         <table class="fl-table">
             <thead>
                 <tr>
-                    <th style="width: 50px">Nomor Transaksi</th>
+                    {{-- <th style="width: 50px">Nomor Transaksi</th> --}}
+                    <th style="width: 50px">No</th>
                     <th style="width: 120px">Tanggal Penjualan</th>
                     <th>Nama Menu</th>
                     <th>Kuantitas</th>
@@ -92,7 +93,8 @@
                 @php $i=1 @endphp
                 @foreach($files as $file)
                 <tr>
-                    <td style="text-align: left;">{{ $file->no_penjualan }}</td>
+                    {{-- <td style="text-align: left;">{{ $file->no_penjualan }}</td> --}}
+                    <td>{{ $i++ }}</td>
                     <td>{{date('d/m/Y',strtotime($file->tgl_penjualan))}} <br> {{$file->waktu_penjualan}} WITA</td>
 
                     @php
