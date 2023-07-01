@@ -13,19 +13,19 @@ use Illuminate\Validation\Rule;
 
 class TransaksiKedaiController extends Controller
 {
-    private function generateNoPenjualan(){
-        $type = "KEDAI";
-        $currentTime = now()->format('dmy');
-        $numberPrefix = $type.$currentTime.'-';
-        $container = TransaksiKedai::where('no_penjualan','like',$numberPrefix.'%')->orderBy('no_penjualan','desc')->first();
+    // private function generateNoPenjualan(){
+    //     $type = "KEDAI";
+    //     $currentTime = now()->format('dmy');
+    //     $numberPrefix = $type.$currentTime.'-';
+    //     $container = TransaksiKedai::where('no_penjualan','like',$numberPrefix.'%')->orderBy('no_penjualan','desc')->first();
 
-        if($container){
-            $counter = (int)(explode($numberPrefix,$container->no_penjualan)[1]) + 1;
-            return $numberPrefix.sprintf('%03d', $counter);
-        }
+    //     if($container){
+    //         $counter = (int)(explode($numberPrefix,$container->no_penjualan)[1]) + 1;
+    //         return $numberPrefix.sprintf('%03d', $counter);
+    //     }
 
-        return $numberPrefix.'001';
-    }
+    //     return $numberPrefix.'001';
+    // }
     
     public function create(Request $request){
         $storeData = $request->all();
@@ -45,7 +45,7 @@ class TransaksiKedaiController extends Controller
         }
 
         $kedaiData = collect($request)->only(TransaksiKedai::filters())->all();
-        $kedaiData['no_penjualan'] = $this->generateNoPenjualan();
+        // $kedaiData['no_penjualan'] = $this->generateNoPenjualan();
         $kedaiMenus = collect($request->detail_transaksi_kedai)->map(function($menu) {
             return collect($menu)->only(DetailTransaksiKedai::filters())->all();
         });

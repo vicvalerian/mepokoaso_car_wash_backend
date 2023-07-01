@@ -14,19 +14,19 @@ use PDF;
 
 class TransaksiPencucianController extends Controller
 {
-    private function generateNoPencucian(){
-        $type = "CUCI";
-        $currentTime = now()->format('dmy');
-        $numberPrefix = $type.$currentTime.'-';
-        $container = TransaksiPencucian::where('no_pencucian','like',$numberPrefix.'%')->orderBy('no_pencucian','desc')->first();
+    // private function generateNoPencucian(){
+    //     $type = "CUCI";
+    //     $currentTime = now()->format('dmy');
+    //     $numberPrefix = $type.$currentTime.'-';
+    //     $container = TransaksiPencucian::where('no_pencucian','like',$numberPrefix.'%')->orderBy('no_pencucian','desc')->first();
 
-        if($container){
-            $counter = (int)(explode($numberPrefix,$container->no_pencucian)[1]) + 1;
-            return $numberPrefix.sprintf('%03d', $counter);
-        }
+    //     if($container){
+    //         $counter = (int)(explode($numberPrefix,$container->no_pencucian)[1]) + 1;
+    //         return $numberPrefix.sprintf('%03d', $counter);
+    //     }
 
-        return $numberPrefix.'001';
-    }
+    //     return $numberPrefix.'001';
+    // }
 
     public function create(Request $request){
         $storeData = $request->all();
@@ -49,7 +49,7 @@ class TransaksiPencucianController extends Controller
         }
 
         $pencucianData = collect($request)->only(TransaksiPencucian::filters())->all();
-        $pencucianData['no_pencucian'] =  $this->generateNoPencucian();
+        // $pencucianData['no_pencucian'] =  $this->generateNoPencucian();
 
         $jmlPencuci = count($request->detail_transaksi_pencuci);
         $upahPencuci = ($pencucianData['tarif_kendaraan'] * 0.35) / $jmlPencuci;
@@ -228,6 +228,10 @@ class TransaksiPencucianController extends Controller
                     'total_pembayaran' => $transaksi->tarif_kendaraan
                 ]);
             }
+        } else{
+            $transaksi->update([
+                'total_pembayaran' => $transaksi->tarif_kendaraan
+            ]);
         }
 
         $transaksi->update(['status' => 'Proses Bayar']);

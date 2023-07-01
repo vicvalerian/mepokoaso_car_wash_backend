@@ -142,10 +142,10 @@
 		</header>
 		<article>
 			<table class="balance">
-				<tr>
+				{{-- <tr>
 					<th><span contenteditable>Nomor Pencucian</span></th>
 					<td><span data-prefix></span><span>{{ $transaksi->no_pencucian }}</span></td>
-				</tr>
+				</tr> --}}
 				<tr>
 					<th><span contenteditable>Tanggal</span></th>
 					<td><span data-prefix></span><span>{{ $tglWaktu }}</span></td>
