@@ -96,7 +96,6 @@ Route::delete('transaksi-pencucian/{id}', 'Api\TransaksiPencucianController@dele
 Route::get('transaksi-pencucian/{id}', 'Api\TransaksiPencucianController@get');
 Route::get('transaksi-pencucian', 'Api\TransaksiPencucianController@getAll');
 Route::put('transaksi-pencucian/cuci', 'Api\TransaksiPencucianController@prosesCuci');
-Route::put('transaksi-pencucian/kering', 'Api\TransaksiPencucianController@prosesKering');
 Route::put('transaksi-pencucian/bayar', 'Api\TransaksiPencucianController@prosesBayar');
 Route::put('transaksi-pencucian/finish', 'Api\TransaksiPencucianController@finish');
 Route::get('transaksi-pencucian/nota/{id}', 'Api\TransaksiPencucianController@cetakNotaPencucian');

@@ -202,16 +202,6 @@ class TransaksiPencucianController extends Controller
         ], 200);
     }
 
-    public function prosesKering(Request $request){
-        $transaksi = TransaksiPencucian::with(['kendaraan', 'mobil_pelanggan'])->where('id', $request->id)->first();
-
-        $transaksi->update(['status' => 'Proses Kering']);
-
-        return response([
-            'message' => 'Berhasil Mengubah Status Transaksi Pencucian',
-        ], 200);
-    }
-
     public function prosesBayar(Request $request){
         $transaksi = TransaksiPencucian::with(['kendaraan', 'mobil_pelanggan'])->where('id', $request->id)->first();
 
